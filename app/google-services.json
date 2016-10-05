@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "879114925288",
+    "firebase_url": "https://adtouch-e78be.firebaseio.com",
+    "project_id": "adtouch-e78be",
+    "storage_bucket": "adtouch-e78be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879114925288:android:4947f555623f3a9b",
+        "android_client_info": {
+          "package_name": "sodevan.adtouch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "879114925288-e9erfiossipbbi40rceg5ieooada6v38.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sodevan.adtouch",
+            "certificate_hash": "4B7BC20212A26EA6C7057F564011341060883D6E"
+          }
+        },
+        {
+          "client_id": "879114925288-nnc6m6b6c3d6aualmra75fkfnejp455o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwIbVREPUQJOOifWkVayAVcPmJiTqocEo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "879114925288-nnc6m6b6c3d6aualmra75fkfnejp455o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

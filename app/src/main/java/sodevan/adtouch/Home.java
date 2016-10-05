@@ -33,7 +33,7 @@ public class Home extends AppCompatActivity {
 
         tvname = (TextView)findViewById(R.id.name) ;
 
-        tvname.setText(name+"Test");
+        tvname.setText(name);
 
 
     }

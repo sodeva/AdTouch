@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/item1"
-        android:title="Ad Touch Account Details"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
-        ></item>
-    <item android:id="@+id/item2"
-        android:title="Add Touch Assistance"
-        >
+    <item android:id="@+id/Profile"
+        android:title="AdTouch Account Details"/>
 
-    </item>
+    <group android:id="@+id/group"
+        android:checkableBehavior="all">
+
+        <item
+            android:title="AdTouch Assist"
+            android:id="@+id/Toggle_Touch_Assist">
+
+        </item>
+
+    </group>
 
 </menu>

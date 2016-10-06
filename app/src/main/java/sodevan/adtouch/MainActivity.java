@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         LoginButton loginButton = (LoginButton) findViewById(R.id.fb_login); // Facebook Login Button
 
-        loginButton.setReadPermissions("email", "public_profile"); //Permision
+        loginButton.setReadPermissions("email", "public_profile", "user_birthday"); //Permision
 
 
 

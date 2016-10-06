@@ -1,12 +1,16 @@
 package sodevan.adtouch;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,23 +45,79 @@ public class Home extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater=getMenuInflater();
         inflater.inflate(R.menu.menu,menu);
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext()) ;
+        boolean b = sp.getBoolean("status" , false) ;
+        MenuItem item =  menu.findItem(R.id.Toggle_Touch_Assist) ;
+        item.setChecked(b)  ;
+
+
+
+
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext()) ;
+
+
+
+
+
+
         switch (item.getItemId()){
-            case R.id.item1:
+            case R.id.Profile:
 
                 Toast.makeText(Home.this,"NOice",Toast.LENGTH_SHORT).show();
+                Intent changeprofile = new Intent(getApplicationContext() ,  ProfileInfo.class) ;
+                startActivity(changeprofile);
                 break;
-            case R.id.item2:
-                Toast.makeText(Home.this,"GLHF",Toast.LENGTH_SHORT).show();
+
+
+            case  R.id.Toggle_Touch_Assist :
+                if(item.isChecked()) {
+                    item.setChecked(false);
+                    sp.edit().putBoolean("status",false).commit() ;
+                    Toast.makeText(getApplicationContext(), "Assistive Touch Deactivated", Toast.LENGTH_SHORT).show();
+
+                }
+
+
+
+                else {
+                    item.setChecked(true);
+                    sp.edit().putBoolean("status", true).commit();
+                    Toast.makeText(getApplicationContext(), "Assistive Touch Activated", Toast.LENGTH_SHORT).show();
+
+
+
+
+
+
+
+
+
+                    // Build Assitive Touch Functionality Here
+
+
+
+
+
+
+
+                }
+
                 break;
+
 
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
 
     @Override
     public void onBackPressed() {

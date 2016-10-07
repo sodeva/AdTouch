@@ -26,11 +26,27 @@ public class ProfileInfo extends AppCompatActivity {
 
     String bday ;
     TextView tvbd ;
+    String email="fbf";
+
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
         setContentView(R.layout.activity_profile_info);
+        GraphRequest request=GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(),new GraphRequest.GraphJSONObjectCallback(){
 
+            @Override
+            public void onCompleted(JSONObject object, GraphResponse response) {
+                final JSONObject jsonObject=response.getJSONObject();
+
+                try {
+                    email=jsonObject.getString("email");
+                    Log.d("email id is",email);
+                    Toast.makeText(ProfileInfo.this, "email is"+email, Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
          tvbd = (TextView)findViewById(R.id.bd) ;
 
 
@@ -41,25 +57,7 @@ public class ProfileInfo extends AppCompatActivity {
         AppEventsLogger.activateApp(this);
 
 
-
-  GraphRequest.newMeRequest(
-                AccessToken.getCurrentAccessToken(),
-                new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(
-                            JSONObject object,
-                            GraphResponse response) {
-
-                             bday =  object.optString("name") ;
-                             tvbd.setText(bday);
-                        Log.i("bday" , bday) ;
-
-
-
-
-
-                    }
-                }).executeAndWait();
+    tvbd.setText(email);
 
 
 

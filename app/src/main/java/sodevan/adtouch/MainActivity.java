@@ -27,6 +27,9 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -83,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
         LoginButton loginButton = (LoginButton) findViewById(R.id.fb_login); // Facebook Login Button
 
-        loginButton.setReadPermissions("email", "public_profile", "user_birthday"); //Permision
+        loginButton.setReadPermissions("email","user_hometown", "user_religion_politics","user_likes","user_status","public_profile", "user_birthday","user_location","user_education_history","user_relationship_details","user_relationships"); //Permision
 
 
 
@@ -141,6 +144,8 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+
+
     }
 
 

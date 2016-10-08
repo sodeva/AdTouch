@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d("status ", "facebook:onSuccess:" + loginResult);
-
                 //If The User Successfully Signed In Then we Call handleFacebookAcessToken Function To Store The User In Firebase Authentication System
                 handleFacebookAccessToken(loginResult.getAccessToken());
 
@@ -147,12 +146,28 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
 
+        GraphRequest request = GraphRequest.newMeRequest(
+                AccessToken.getCurrentAccessToken(),
+                new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject jsonObject, GraphResponse response) {
 
+                       String name = jsonObject.optString("name") ;
+
+                        Log.d("Name",name) ;
+                        // Application code
+                    }
+                });
+
+        request.executeAsync();
     }
 
 
     // After User Is Successfully Loged in  , Then This method is called to Register The User at FireBase
     private void handleFacebookAccessToken(AccessToken token) {
+
+         String s = token.getToken() ;
+        Log.e("Access" , s ) ;
 
         //Storing Credential
 

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
+import com.facebook.FacebookActivity;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
@@ -35,10 +36,13 @@ public class ProfileInfo extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
 
-
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
 
         AccessToken token = AccessToken.getCurrentAccessToken() ;
-        Log.d("Access Token:" , token.toString()) ;
+
+
+        Log.d("Access Token:" , token.getToken()) ;
         setContentView(R.layout.activity_profile_info);
         GraphRequest request=GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(),new GraphRequest.GraphJSONObjectCallback(){
 
@@ -47,7 +51,7 @@ public class ProfileInfo extends AppCompatActivity {
                 final JSONObject jsonObject=response.getJSONObject();
 
                 try {
-                    email=jsonObject.getString("email");
+                    email=jsonObject.getString("email user_birthday");
                     Log.d("email id is",email);
                     Toast.makeText(ProfileInfo.this, "email is"+email, Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
@@ -61,10 +65,7 @@ public class ProfileInfo extends AppCompatActivity {
 
 
 
-        FacebookSdk.addLoggingBehavior(LoggingBehavior.REQUESTS);
 
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
 
 
     tvbd.setText(email);

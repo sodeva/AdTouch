@@ -1,11 +1,16 @@
 package sodevan.adtouch;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.Slide;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -28,8 +33,8 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
 
+        setContentView(R.layout.activity_home);
         FirebaseAuth auth = FirebaseAuth.getInstance() ;
         user = auth.getCurrentUser() ;
         name = user.getDisplayName() ;
@@ -38,6 +43,8 @@ public class Home extends AppCompatActivity {
         tvname = (TextView)findViewById(R.id.name) ;
 
         tvname.setText(name);
+
+
 
 
     }
@@ -72,7 +79,17 @@ public class Home extends AppCompatActivity {
 
                 Toast.makeText(Home.this,"NOice",Toast.LENGTH_SHORT).show();
                 Intent changeprofile = new Intent(getApplicationContext() ,  ProfileInfo.class) ;
-                startActivity(changeprofile);
+
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle() ;
+                    this.startActivity(changeprofile,bundle);
+                }
+
+                else{
+                    startActivity(changeprofile);
+                }
+
                 break;
 
 
@@ -150,6 +167,10 @@ public class Home extends AppCompatActivity {
 
         }
     }
+
+
+
+
 }
 
 

@@ -1,9 +1,11 @@
 package sodevan.adtouch;
 
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.Slide;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -86,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         LoginButton loginButton = (LoginButton) findViewById(R.id.fb_login); // Facebook Login Button
 
-        loginButton.setReadPermissions("email","user_hometown", "user_religion_politics","user_likes","user_status","public_profile", "user_birthday","user_location","user_education_history","user_relationship_details","user_relationships"); //Permision
+        loginButton.setReadPermissions("email public_profile"); //Permision
 
 
 

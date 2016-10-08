@@ -2,8 +2,11 @@ package sodevan.adtouch;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.transition.Slide;
+import android.transition.TransitionInflater;
 import android.widget.TextView;
 
 public class SplashScreen extends AppCompatActivity {
@@ -19,6 +22,8 @@ public class SplashScreen extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_splash_screen);
+
+
 
         // Custom Caviar Font
         Typeface mycustomfont=Typeface.createFromAsset(getAssets(),"caviar.ttf");
@@ -49,4 +54,7 @@ public class SplashScreen extends AppCompatActivity {
         };
         thread.start();
     }
+
+
+
 }

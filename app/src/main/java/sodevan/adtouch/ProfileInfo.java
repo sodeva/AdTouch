@@ -1,11 +1,14 @@
 package sodevan.adtouch;
 
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Slide;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,6 +34,11 @@ public class ProfileInfo extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
+
+
+
+        AccessToken token = AccessToken.getCurrentAccessToken() ;
+        Log.d("Access Token:" , token.toString()) ;
         setContentView(R.layout.activity_profile_info);
         GraphRequest request=GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(),new GraphRequest.GraphJSONObjectCallback(){
 
@@ -48,6 +56,8 @@ public class ProfileInfo extends AppCompatActivity {
             }
         });
          tvbd = (TextView)findViewById(R.id.bd) ;
+
+        request.executeAsync() ;
 
 
 
@@ -72,9 +82,6 @@ public class ProfileInfo extends AppCompatActivity {
 
 
 
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater=getMenuInflater();
@@ -87,8 +94,6 @@ public class ProfileInfo extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
 
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext()) ;
-
-
 
 
 

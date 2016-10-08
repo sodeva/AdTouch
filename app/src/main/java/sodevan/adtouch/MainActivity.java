@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     CallbackManager callbackManager;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    String email="";
 
 
     @Override
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
         LoginButton loginButton = (LoginButton) findViewById(R.id.fb_login); // Facebook Login Button
 
-        loginButton.setReadPermissions("email public_profile"); //Permision
+        loginButton.setReadPermissions("email","public_profile","user_friends"); //Permision
 
 
 
@@ -100,6 +101,21 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("status ", "facebook:onSuccess:" + loginResult);
                 //If The User Successfully Signed In Then we Call handleFacebookAcessToken Function To Store The User In Firebase Authentication System
                 handleFacebookAccessToken(loginResult.getAccessToken());
+                GraphRequest request=GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                    @Override
+                    public void onCompleted(JSONObject object, GraphResponse response) {
+                        Log.d("response",response+"");
+                        try {
+                            Log.d("email",object.getString("email").toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                Bundle parameters=new Bundle();
+                parameters.putString("fields","email");
+                request.setParameters(parameters);
+                request.executeAsync();
 
             }
 

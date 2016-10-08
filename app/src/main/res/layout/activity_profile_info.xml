@@ -1,22 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_profile_info"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+
     tools:context="sodevan.adtouch.ProfileInfo">
 
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:civ_border_color="@color/colorPrimary"
+        app:civ_border_width="4dp"
+        app:civ_shadow="true"
+        app:civ_shadow_radius="10"
+        app:civ_shadow_color="@color/colorPrimaryDark"
+        android:id="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        />
+
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textSize="25sp"
+        android:id="@+id/Username"
+        android:elevation="20dp"
+        />
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:id="@+id/bd"
-        android:textColor="@color/black"
-        />
+        android:layout_below="@id/Username"
+        android:background="@color/colorPrimary"
+        >
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AGE-RANGE : 18-36"
+            android:id="@+id/Agerange"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BIRTHDAY : 19 OCTOBER"
+            android:layout_below="@id/Agerange"
+            android:id="@+id/birhday"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Education : MIT"
+            android:layout_below="@id/birhday"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:id="@+id/education"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EMAIL : xyz@kani.com"
+            android:layout_below="@id/education"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:id="@+id/email"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HOMETOWN : Seelampur "
+            android:layout_below="@id/email"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:id="@+id/hometown"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOCATION : New Delhi "
+            android:layout_below="@id/hometown"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:id="@+id/location"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RELATIONSHIP STATUS : Single "
+            android:layout_below="@id/location"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:id="@+id/rstatus"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RELIGION : Hindu"
+            android:layout_below="@id/rstatus"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:id="@+id/religion"
+            />
+
+
+    </RelativeLayout>
+
+    </ScrollView>
+
+
+
+
 
 
 

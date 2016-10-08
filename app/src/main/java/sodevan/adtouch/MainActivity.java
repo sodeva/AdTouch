@@ -70,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(change);
                     finish();
 
+
+
                 } else {
                     // User is signed out
                     Log.d("Statusi", "onAuthStateChanged:signed_out");
@@ -101,22 +103,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("status ", "facebook:onSuccess:" + loginResult);
                 //If The User Successfully Signed In Then we Call handleFacebookAcessToken Function To Store The User In Firebase Authentication System
                 handleFacebookAccessToken(loginResult.getAccessToken());
-                GraphRequest request=GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        Log.d("response",response+"");
-                        try {
-                            Log.d("email",object.getString("email").toString());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                Bundle parameters=new Bundle();
-                parameters.putString("fields","email");
-                request.setParameters(parameters);
-                request.executeAsync();
-
             }
 
 
@@ -162,20 +148,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
 
-        GraphRequest request = GraphRequest.newMeRequest(
-                AccessToken.getCurrentAccessToken(),
-                new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(JSONObject jsonObject, GraphResponse response) {
 
-                       String name = jsonObject.optString("name") ;
-
-                        Log.d("Name",name) ;
-                        // Application code
-                    }
-                });
-
-        request.executeAsync();
     }
 
 
@@ -184,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
          String s = token.getToken() ;
         Log.e("Access" , s ) ;
+
 
         //Storing Credential
 

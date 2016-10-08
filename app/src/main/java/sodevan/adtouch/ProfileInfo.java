@@ -1,6 +1,10 @@
 package sodevan.adtouch;
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -22,57 +26,68 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.LoggingBehavior;
 import com.facebook.appevents.AppEventsLogger;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class ProfileInfo extends AppCompatActivity {
 
     String bday ;
     TextView tvbd ;
-    String email="fbf";
+    URI juri  ;
+    URL url ;
+    Bitmap image  ;
+
+    CircularImageView circularImageView ;
+
+
+
+    FirebaseAuth auth ;
+
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
-
-        AccessToken token = AccessToken.getCurrentAccessToken() ;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
 
-        Log.d("Access Token:" , token.getToken()) ;
-        setContentView(R.layout.activity_profile_info);
-        GraphRequest request=GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(),new GraphRequest.GraphJSONObjectCallback(){
+        auth = FirebaseAuth.getInstance() ;
 
-            @Override
-            public void onCompleted(JSONObject object, GraphResponse response) {
-                final JSONObject jsonObject=response.getJSONObject();
+        FirebaseUser user = auth.getCurrentUser() ;
 
-                try {
-                    email=jsonObject.getString("email user_birthday");
-                    Log.d("email id is",email);
-                    Toast.makeText(ProfileInfo.this, "email is"+email, Toast.LENGTH_SHORT).show();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-         tvbd = (TextView)findViewById(R.id.bd) ;
 
-        request.executeAsync() ;
+        circularImageView = (CircularImageView)findViewById(R.id.imageView) ;
 
 
 
 
+         Uri uri  = user.getPhotoUrl() ;
 
 
-    tvbd.setText(email);
+        try {
+            juri = new URI(uri.toString());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
 
 
+        try {
+            url  = juri.toURL() ;
 
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
 
+        Log.e("Url : ", url.toString()) ;
+        new display().execute() ;
 
 
 
@@ -144,6 +159,32 @@ public class ProfileInfo extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    // This AsyncTask is To get Image from Image url
+    private  class display extends AsyncTask<Void ,Void, Void> {
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            try {
+                image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+
+            super.onPostExecute(aVoid);
+            circularImageView.setImageBitmap(Bitmap.createScaledBitmap(image, 350, 350, false));
+
+        }
+    }
 
 
 }

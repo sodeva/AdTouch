@@ -51,6 +51,7 @@
                     android:layout_height="wrap_content"
                     android:text="Your Earning"
                     android:id="@+id/h1"
+                    android:textColor="#FFFFFF"
                     android:textSize="20sp"
                     />
 
@@ -59,7 +60,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/h1"
                     android:id="@+id/userearning"
-                    android:text="Rs 100/-"
+                    android:text="₹ 100/-"
+                    android:textColor="#FFFFFF"
                     android:textSize="30sp"
                     android:layout_centerHorizontal="true"/>
 
@@ -91,6 +93,7 @@
                         android:layout_height="wrap_content"
                         android:text="Your Contribution"
                         android:id="@+id/h2"
+                        android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         />
 
@@ -99,8 +102,9 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/h2"
                         android:id="@+id/Usercontribution"
-                        android:text="Rs 10/-"
+                        android:text="₹ 10/-"
                         android:textSize="30sp"
+                        android:textColor="#FFFFFF"
                         android:layout_centerHorizontal="true"/>
 
                 </RelativeLayout>
@@ -133,6 +137,7 @@
                         android:layout_height="wrap_content"
                         android:text="Total Contribution Today"
                         android:id="@+id/h3"
+                        android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         />
 
@@ -141,8 +146,9 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/h3"
                         android:id="@+id/total_contribution_t"
-                        android:text="Rs 564/-"
+                        android:text="₹ 564/-"
                         android:textSize="30sp"
+                        android:textColor="#FFFFFF"
                         android:layout_centerHorizontal="true"/>
 
                 </RelativeLayout>
@@ -172,6 +178,7 @@
                         android:layout_height="wrap_content"
                         android:text="Your Contribution"
                         android:id="@+id/h4"
+                        android:textColor="#FFFFFF"
                         android:textSize="20sp"
                         />
 
@@ -180,8 +187,9 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/h4"
                         android:id="@+id/total_contribution_till_now"
-                        android:text="Rs 10/-"
+                        android:text="₹ 10/-"
                         android:textSize="30sp"
+                        android:textColor="#FFFFFF"
                         android:layout_centerHorizontal="true"/>
 
                 </RelativeLayout>

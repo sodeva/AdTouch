@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "879114925288-udgpg2ieajuacegleg9i5ji5ege4g4kv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "sodevan.adtouch",
+            "certificate_hash": "BCBBDD7AD0A9892A5B701CB3A968EB5B072ECED2"
+          }
+        },
+        {
           "client_id": "879114925288-e9erfiossipbbi40rceg5ieooada6v38.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

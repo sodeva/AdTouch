@@ -36,7 +36,6 @@
             android:textColor="@android:color/background_light"
             android:textSize="100sp"
             android:layout_below="@id/im"
-
             />
 
 

@@ -34,7 +34,7 @@
             android:id="@+id/textView"
             android:text="Ad Touch"
             android:textColor="@android:color/background_light"
-            android:textSize="50sp"
+            android:textSize="100sp"
             android:layout_below="@id/im"
 
             />

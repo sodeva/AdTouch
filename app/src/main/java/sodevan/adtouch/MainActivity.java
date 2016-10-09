@@ -27,6 +27,9 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -98,6 +101,27 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("status ", "facebook:onSuccess:" + loginResult);
                 //If The User Successfully Signed In Then we Call handleFacebookAcessToken Function To Store The User In Firebase Authentication System
                 handleFacebookAccessToken(loginResult.getAccessToken());
+                GraphRequest request=GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                                        @Override
+                                        public void onCompleted(JSONObject object, GraphResponse response) {
+                                                Log.d("response",response+"");
+                                                try {
+                                                        Log.d("email",object.getString("email").toString());
+
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                            try {
+                                                Log.d("education",object.getJSONArray("education").getJSONObject(0).getString("type"));
+                                            } catch (JSONException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    });
+                                Bundle parameters=new Bundle();
+                                parameters.putString("fields","email");
+                                request.setParameters(parameters);
+                               request.executeAsync();
             }
 
 

@@ -10,13 +10,192 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="sodevan.adtouch.Home">
 
+
     <TextView
+        android:text="Welcome to Defence"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:textSize="30sp"
-        android:id="@+id/name"
-        />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/heading"
+        android:textSize="25sp"
+        android:layout_marginBottom="20dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/heading">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:padding="30dp"
+                android:background="@color/colorPrimary"
+                android:id="@+id/tile1"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="10dp"
+                >
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Your Earning"
+                    android:id="@+id/h1"
+                    android:textSize="20sp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/h1"
+                    android:id="@+id/userearning"
+                    android:text="Rs 100/-"
+                    android:textSize="30sp"
+                    android:layout_centerHorizontal="true"/>
+
+                </RelativeLayout>
+               </RelativeLayout>
+
+
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:padding="30dp"
+                android:background="@color/colorPrimary"
+                android:id="@+id/tile2"
+                android:layout_below="@id/tile1"
+                android:layout_marginBottom="10dp"
+                >
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Your Contribution"
+                        android:id="@+id/h2"
+                        android:textSize="20sp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/h2"
+                        android:id="@+id/Usercontribution"
+                        android:text="Rs 10/-"
+                        android:textSize="30sp"
+                        android:layout_centerHorizontal="true"/>
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:padding="30dp"
+                android:background="@color/colorPrimary"
+                android:id="@+id/tile3"
+                android:layout_below="@id/tile2"
+                android:layout_marginBottom="10dp"
+                >
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Total Contribution Today"
+                        android:id="@+id/h3"
+                        android:textSize="20sp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/h3"
+                        android:id="@+id/total_contribution_t"
+                        android:text="Rs 564/-"
+                        android:textSize="30sp"
+                        android:layout_centerHorizontal="true"/>
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:padding="30dp"
+                android:background="@color/colorPrimary"
+                android:id="@+id/til4"
+                android:layout_below="@id/tile3"
+                >
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Your Contribution"
+                        android:id="@+id/h4"
+                        android:textSize="20sp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/h4"
+                        android:id="@+id/total_contribution_till_now"
+                        android:text="Rs 10/-"
+                        android:textSize="30sp"
+                        android:layout_centerHorizontal="true"/>
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+
+
+
+        </RelativeLayout>
+
+
+    </ScrollView>
 
 
 </RelativeLayout>

@@ -1,21 +1,16 @@
 package sodevan.adtouch;
 
-import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
+import android.graphics.Typeface;
+import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.transition.Slide;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,10 +18,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Home extends AppCompatActivity {
-    TextView tvname ;
+    TextView tvname,heading ;
     FirebaseAuth auth ;
     FirebaseUser user ;
     String name ;
+    Typeface cav,robo;
     private Boolean exit = false;
     private long BackRepeatTime = 3000 ;
 
@@ -38,11 +34,17 @@ public class Home extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance() ;
         user = auth.getCurrentUser() ;
         name = user.getDisplayName() ;
+        heading=(TextView)findViewById(R.id.heading);
+        cav = Typeface.createFromAsset(getAssets() ,"caviar.ttf") ;
+        robo = Typeface.createFromAsset(getAssets() ,"Roboto-Light.ttf");
+        heading.setTypeface(cav);
 
 
-        tvname = (TextView)findViewById(R.id.name) ;
 
-        tvname.setText(name);
+
+        //tvname = (TextView)findViewById(R.id.name) ;
+
+       // tvname.setText(name);
 
 
 

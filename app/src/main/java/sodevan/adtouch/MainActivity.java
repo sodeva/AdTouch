@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                                                         Log.d("email",object.getString("email").toString());
 
                                                     } catch (JSONException e) {
-                                                        e.printStackTrace();
+                                                        e.printStackTrace();//dgsfg
                                                     }
                                             try {
                                                 Log.d("education",object.getJSONArray("education").getJSONObject(0).getString("type"));

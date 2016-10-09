@@ -18,11 +18,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class Home extends AppCompatActivity {
-    TextView tvname,heading ;
+    TextView heading , h1,h2,h3, h4 ;
+
     FirebaseAuth auth ;
     FirebaseUser user ;
     String name ;
-    Typeface cav,robo;
+    Typeface cav,robo,roboc;
     private Boolean exit = false;
     private long BackRepeatTime = 3000 ;
 
@@ -34,9 +35,32 @@ public class Home extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance() ;
         user = auth.getCurrentUser() ;
         name = user.getDisplayName() ;
+
+
         heading=(TextView)findViewById(R.id.heading);
+        h1=(TextView)findViewById(R.id.h1) ;
+        h2=(TextView)findViewById(R.id.h2) ;
+        h3=(TextView)findViewById(R.id.h3) ;
+        h4=(TextView)findViewById(R.id.h4) ;
+
+
+
+
+
+
         cav = Typeface.createFromAsset(getAssets() ,"caviar.ttf") ;
         robo = Typeface.createFromAsset(getAssets() ,"Roboto-Light.ttf");
+        roboc=Typeface.createFromAsset(getAssets() , "RobotoCondensed-Bold.ttf") ;
+
+
+
+        h1.setTypeface(cav);
+        h2.setTypeface(cav);
+        h3.setTypeface(cav);
+        h4.setTypeface(cav);
+
+
+
         heading.setTypeface(cav);
 
 

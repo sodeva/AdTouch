@@ -25,8 +25,7 @@ public class SplashScreen extends AppCompatActivity {
 
 
 
-        // Custom Caviar Font
-        Typeface mycustomfont=Typeface.createFromAsset(getAssets(),"caviar.ttf");
+        Typeface mycustomfont=Typeface.createFromAsset(getAssets(),"Construthinvism.ttf");
 
 
         //Splash Screen Text

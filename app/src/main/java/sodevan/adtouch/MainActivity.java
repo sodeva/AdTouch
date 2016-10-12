@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
         LoginButton loginButton = (LoginButton) findViewById(R.id.fb_login); // Facebook Login Button
 
-        loginButton.setReadPermissions("email","public_profile","user_friends","user_education_history"); //Permision
+        loginButton.setReadPermissions("email","public_profile","user_friends","user_hometown","user_likes","user_birthday"); //Permision
 
 
 
@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                                                 Log.d("response",response+"");
                                                 try {
                                                         Log.d("email",object.getString("email").toString());
+
 
                                                     } catch (JSONException e) {
                                                         e.printStackTrace();//dgsfg

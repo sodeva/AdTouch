@@ -139,7 +139,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="RELATIONSHIP STATUS : Single "
+                    android:text="LIKES : Potato"
                     android:layout_below="@id/location"
                     android:paddingLeft="20dp"
                     android:paddingTop="20dp"

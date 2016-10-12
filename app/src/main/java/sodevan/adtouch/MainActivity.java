@@ -105,13 +105,15 @@ public class MainActivity extends AppCompatActivity {
                 handleFacebookAccessToken(loginResult.getAccessToken());
                 new GraphRequest(
                         AccessToken.getCurrentAccessToken(),
-                        "/me",
+                        "me?fields=birthday,email,hometown",
                         null,
                         HttpMethod.GET,
                         new GraphRequest.Callback() {
                             public void onCompleted(GraphResponse response) {
             /* handle the result */
-                                Log.d("Response::" , String.valueOf(response.getJSONObject()));
+
+                                    Log.d("Response::" , String.valueOf(response.getJSONObject()));
+
 
                             }
                         }

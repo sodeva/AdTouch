@@ -30,6 +30,8 @@ import com.google.firebase.auth.FirebaseUser;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Map;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -105,13 +107,10 @@ public class MainActivity extends AppCompatActivity {
                                         @Override
                                         public void onCompleted(JSONObject object, GraphResponse response) {
                                                 Log.d("response",response+"");
-                                                try {
-                                                        Log.d("email",object.getString("email").toString());
+
+                                                        Log.d("data",response.toString());
 
 
-                                                    } catch (JSONException e) {
-                                                        e.printStackTrace();//dgsfg
-                                                    }
                                             try {
                                                 Log.d("education",object.getJSONObject("education").getJSONObject("0").getString("type"));
                                             } catch (JSONException e) {

@@ -26,10 +26,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.nio.charset.Charset;
 import java.util.Map;
 
 
@@ -38,7 +41,14 @@ public class MainActivity extends AppCompatActivity {
     CallbackManager callbackManager;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    String email="";
+    String hometown ;
+    String email ;
+    String dob ;
+    int year ;
+    FirebaseDatabase database ;
+    DatabaseReference reference ;
+
+
 
 
     @Override
@@ -64,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
                 if (user != null) {
                     // User is signed in
                     Log.d("Statusi", "onAuthStateChanged:signed_in:" + user.getUid());
-
 
                     Intent change = new Intent(getApplicationContext(), Home.class);
                     startActivity(change);
@@ -113,6 +122,20 @@ public class MainActivity extends AppCompatActivity {
             /* handle the result */
 
                                     Log.d("Response::" , String.valueOf(response.getJSONObject()));
+                                JSONObject jso =     response.getJSONObject() ;
+                                 hometown =  jso.optJSONObject("hometown").optString("name") ;
+                                 email = jso.optString("email") ;
+                                 dob = jso.optString("birthday") ;
+                                year = Integer.parseInt(dob.substring(6)) ;
+                               Log.d("year" , year+"") ;
+                                Log.d("hometown" ,hometown) ;
+                                Log.d("email" , email) ;
+                                Log.d("dob",dob) ;
+
+
+
+
+
 
 
                             }
@@ -186,12 +209,28 @@ public class MainActivity extends AppCompatActivity {
 
                 Log.d("StoreState ", "signInWithCredential:onComplete:" + task.isSuccessful());
 
+
+
+                if(task.isSuccessful()){
+                    FirebaseUser user = mAuth.getCurrentUser() ;
+                    String uid =user.getUid() ;
+                    database = FirebaseDatabase.getInstance() ;
+                    reference = database.getReference("Users").child(uid);
+                    reference.child("hometown").setValue(hometown) ;
+                    reference.child("dob").setValue(dob) ;
+                    reference.child("birthyear").setValue(year) ;
+                    reference.child("email").setValue(email) ;
+                    reference.child("name").setValue(user.getDisplayName()) ;
+
+
+
+                }
                 // If sign in fails, display a message to the user. If sign in succeeds
                 // the auth state listener will be notified and logic to handle the
                 // signed in user can be handled in the listener.
 
 
-                if (!task.isSuccessful()) {
+                else if (!task.isSuccessful()) {
                     Log.w("StoreStatus", "signInWithCredential", task.getException());
                     Toast.makeText(MainActivity.this, "Authentication failed.",
                             Toast.LENGTH_SHORT).show();

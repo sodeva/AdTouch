@@ -37,7 +37,7 @@
         <provider
             android:name="com.facebook.FacebookContentProvider"
             android:authorities="com.facebook.app.FacebookContentProvider"
-            android:exported="true" />
+            android:exported="true"/>
 
         <service
             android:name=".HUD"/>

@@ -1,48 +1,13 @@
 package sodevan.adtouch;
 
-import android.app.Service;
+        import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.GradientDrawable;
-import android.os.AsyncTask;
-import android.os.Build;
-import android.os.Handler;
-import android.os.IBinder;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Display;
-import android.view.Gravity;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
-
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
-
-import android.app.Activity;
-import android.app.Service;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.PixelFormat;
-import android.graphics.drawable.GradientDrawable;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
@@ -69,6 +34,14 @@ import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.google.gson.Gson;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -76,7 +49,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-public class HUD extends Service implements View.OnTouchListener, View.OnClickListener {
+public class HUD extends Service implements OnTouchListener, OnClickListener {
     private View topLeftView;
 
     private ImageView overlayedButton;
@@ -95,7 +68,7 @@ public class HUD extends Service implements View.OnTouchListener, View.OnClickLi
     private int[] largeAds = new int[] {R.drawable.ad1, R.drawable.ad2, R.drawable.ad3, R.drawable.ad4,
             R.drawable.ad5};
 
-    private WindowManager.LayoutParams params;
+    private LayoutParams params;
     private Handler handler;
     private SliderLayout slider;
 
@@ -127,24 +100,24 @@ public class HUD extends Service implements View.OnTouchListener, View.OnClickLi
         overlayedButton.setOnClickListener(this);
         overlayedButton.setScaleType(ImageButton.ScaleType.FIT_CENTER);
         overlayedButton.setAdjustViewBounds(true);
-        params = new WindowManager.LayoutParams(
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
+        params = new LayoutParams(
+                LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT,
+                LayoutParams.TYPE_SYSTEM_ALERT,
+                LayoutParams.FLAG_NOT_FOCUSABLE | LayoutParams.FLAG_NOT_TOUCH_MODAL,
                 PixelFormat.TRANSLUCENT);
 
         params.gravity = Gravity.LEFT | Gravity.TOP;
         params.x = 0;
         params.y = 0;
-        params.width = 80;
-        params.height = 80;
+        params.width = 200;
+        params.height = 200;
         wm.addView(overlayedButton, params);
 
         topLeftView = new View(this);
-        WindowManager.LayoutParams topLeftParams = new WindowManager.LayoutParams(WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.TYPE_SYSTEM_ALERT, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE
-                | WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, PixelFormat.TRANSLUCENT);
+        LayoutParams topLeftParams = new LayoutParams(LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT, LayoutParams.TYPE_SYSTEM_ALERT, LayoutParams.FLAG_NOT_FOCUSABLE
+                | LayoutParams.FLAG_NOT_TOUCH_MODAL, PixelFormat.TRANSLUCENT);
         topLeftParams.gravity = Gravity.LEFT | Gravity.TOP;
         topLeftParams.x = 0;
         topLeftParams.y = 0;
@@ -161,8 +134,14 @@ public class HUD extends Service implements View.OnTouchListener, View.OnClickLi
             @Override
             public void run() {
 
+                // Clear Previous Database
+                AdDatabase adb1 = new AdDatabase(getApplicationContext());
+                adb1.open();
+                adb1.cleardatabase();
+                adb1.close();
+
                 // Download Ads Here
-                //new DownloadAds().execute();
+                new DownloadAds().execute();
 
             }
         };
@@ -189,22 +168,24 @@ public class HUD extends Service implements View.OnTouchListener, View.OnClickLi
                 // Get Sequential Image from Database
 
                 // Display Image on Small Touch
+                try {
+                    if (smallAdsCounter < smallAds.length) {
 
-                if(smallAdsCounter < smallAds.length) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                overlayedButton.setImageResource(smallAds[smallAdsCounter]);
 
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            overlayedButton.setImageResource(smallAds[smallAdsCounter]);
-
-                            // Update counter
-                            smallAdsCounter = smallAdsCounter + 1;
-                        }
-                    });
-                }else{
-                    smallAdsCounter = 0;
+                                // Update counter
+                                smallAdsCounter = smallAdsCounter + 1;
+                            }
+                        });
+                    } else {
+                        smallAdsCounter = 0;
+                    }
+                }catch(Exception ex){
+                    Log.e("AdTouchException", ex.getMessage());
                 }
-
 
             }
         };
@@ -249,7 +230,7 @@ public class HUD extends Service implements View.OnTouchListener, View.OnClickLi
             float x = event.getRawX();
             float y = event.getRawY();
 
-            WindowManager.LayoutParams params = (WindowManager.LayoutParams) overlayedButton.getLayoutParams();
+            LayoutParams params = (LayoutParams) overlayedButton.getLayoutParams();
 
             int newX = (int) (offsetX + x);
             int newY = (int) (offsetY + y);
@@ -281,7 +262,7 @@ public class HUD extends Service implements View.OnTouchListener, View.OnClickLi
 
         adWindow = new RelativeLayout(this);
         //adWindow.setBackgroundColor(Color.BLUE);
-        adWindow.setPadding(20, 300, 20, 300);
+        adWindow.setPadding(20, 500, 20, 500);
         //adWindow.setBackgroundDrawable(shape);
 
         Animation animation =
@@ -292,10 +273,10 @@ public class HUD extends Service implements View.OnTouchListener, View.OnClickLi
         //adWindow.animate();
         animation.start();
 
-        WindowManager.LayoutParams adParam = new WindowManager.LayoutParams(
-                WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
+        LayoutParams adParam = new LayoutParams(
+                LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT,
+                LayoutParams.TYPE_SYSTEM_ALERT,
+                LayoutParams.FLAG_NOT_FOCUSABLE | LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
                 PixelFormat.TRANSLUCENT);
 
         adParam.x = 0;
@@ -336,7 +317,7 @@ public class HUD extends Service implements View.OnTouchListener, View.OnClickLi
         winm.addView(adWindow, adParam);
 
         wm.removeView(overlayedButton);
-        adWindow.setOnClickListener(new View.OnClickListener() {
+        adWindow.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
@@ -354,19 +335,75 @@ public class HUD extends Service implements View.OnTouchListener, View.OnClickLi
         handler.post(runnable);
     }
 
-    private class DownloadAds extends AsyncTask<Void, Void, Bitmap> {
+    private class DownloadAds extends AsyncTask<Void, Void, Boolean>{
+
+        private AdsParser downloaddata;
+        private URL url;
+        private BufferedReader reader;
+        private URL imgurl;
+        private HttpURLConnection urlconnection;
+        private long insertid;
 
         @Override
-        protected Bitmap doInBackground(Void... params) {
+        protected Boolean doInBackground(Void... params) {
+
+            Boolean download_result = false;
+
             // Connect to WebService
-            String url = "http://www.adtouch.in/downloadads.php?username=admin";
+            try {
+                url = new URL("http://www.adtouch.in/downloadads.php?username=admin");
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            try {
+                reader = new BufferedReader(new InputStreamReader(url.openStream()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            String datafromurl = "";
+            String dataurl;
+            try {
+                while((dataurl = reader.readLine()) != null){
+                    datafromurl = datafromurl + dataurl;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Log.i("DownloadAds", datafromurl);
+
             Gson gson = new Gson();
-            AdsParser downloaddata = gson.fromJson(url, AdsParser.class);
+
+            downloaddata = gson.fromJson(datafromurl, AdsParser.class);
+
             List<AdsParser.ResultEntity> result = downloaddata.getResult();
             for(AdsParser.ResultEntity resdata : result){
-
                 String title = resdata.getTitle();
                 String image = resdata.getImage();
+
+                try {
+                    imgurl = new URL(image);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+
+                    urlconnection = (HttpURLConnection)imgurl.openConnection();
+                    InputStream imgstream = urlconnection.getInputStream();
+                    Bitmap bmpimage = BitmapFactory.decodeStream(imgstream);
+                    byte[] imgblob = getbBytes(bmpimage);
+
+                    AdDatabase adb = new AdDatabase(getApplicationContext());
+                    adb.open();
+                    insertid = adb.save(title, imgblob);
+                    adb.close();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 Log.i("Title", title);
                 Log.i("Image", image);
@@ -379,23 +416,62 @@ public class HUD extends Service implements View.OnTouchListener, View.OnClickLi
                     String adtext = rdata.getText();
                     String adimage = rdata.getImage();
 
+                    try {
+                        URL adimgurl = new URL(adimage);
+                        HttpURLConnection adurlconnection = (HttpURLConnection) adimgurl.openConnection();
+                        InputStream adimgstream = adurlconnection.getInputStream();
+                        Bitmap adimg = BitmapFactory.decodeStream(adimgstream);
+                        byte[] adimgblob = getbBytes(adimg);
+
+                        // Save to Database
+                        AdDatabase adb1 = new AdDatabase(getApplicationContext());
+                        adb1.open();
+                        adb1.saveData(insertid, adtext, adimgblob);
+                        adb1.close();
+
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                     Log.i("AdText", adtext);
                     Log.i("AdImage", adimage);
 
                     // Download Image and Save to Database
 
                 }
-
+                download_result = true;
             }
 
             // Save to Database
-            return null;
+            return download_result;
         }
 
         @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            super.onPostExecute(bitmap);
-            Toast.makeText(getApplicationContext(), "Ads Downloaded", Toast.LENGTH_LONG).show();
+        protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+            if(result) {
+                Toast.makeText(getApplicationContext(), "Ads Downloaded", Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(getApplicationContext(), "Ads Download Failed", Toast.LENGTH_LONG).show();
+            }
         }
+
     }
+
+    public static byte[] getbBytes(Bitmap image){
+        byte[] result = null;
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 0, bos);
+        return bos.toByteArray();
+    }
+
+    public static Bitmap getBitmap(byte[] image){
+        Bitmap result = null;
+        BitmapFactory.decodeByteArray(image, 0, image.length);
+        return result;
+    }
+
 }

@@ -23,20 +23,10 @@
             android:id="@+id/im"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
-            android:background="@mipmap/ic_launcher"
+            android:background="@drawable/logo"
             />
 
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/textView"
-            android:text="Ad Touch"
-            android:textColor="@android:color/background_light"
-            android:textSize="100sp"
-            android:layout_below="@id/im"
-            />
 
 
     </RelativeLayout>

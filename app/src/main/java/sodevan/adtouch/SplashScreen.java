@@ -2,12 +2,8 @@ package sodevan.adtouch;
 
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.transition.Slide;
-import android.transition.TransitionInflater;
-import android.widget.TextView;
+import android.support.v7.app.AppCompatActivity;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -15,7 +11,7 @@ public class SplashScreen extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        TextView tv1;
+
 
         final long  SplashScreenTime = 2000 ;   // Time gap for Splash Screen
 
@@ -28,10 +24,6 @@ public class SplashScreen extends AppCompatActivity {
         Typeface mycustomfont=Typeface.createFromAsset(getAssets(),"Construthinvism.ttf");
 
 
-        //Splash Screen Text
-        tv1=(TextView)findViewById(R.id.textView);
-
-        tv1.setTypeface(mycustomfont);
 
 
 

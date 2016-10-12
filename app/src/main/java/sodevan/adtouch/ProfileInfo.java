@@ -1,5 +1,7 @@
 package sodevan.adtouch;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -133,14 +135,21 @@ public class ProfileInfo extends AppCompatActivity {
 
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater=getMenuInflater();
-        inflater.inflate(R.menu.menu,menu);
-         return true ;
-    }
+        inflater.inflate(R.menu.menu2,menu);
 
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext()) ;
+        boolean b = sp.getBoolean("status" , false) ;
+        MenuItem item =  menu.findItem(R.id.Toggle_Touch_Assist) ;
+        item.setChecked(b)  ;
+
+
+
+
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -150,16 +159,17 @@ public class ProfileInfo extends AppCompatActivity {
 
 
 
-        switch (item.getItemId()){
-            case R.id.Profile:
 
-                Toast.makeText(ProfileInfo.this,"NOice",Toast.LENGTH_SHORT).show();
-                break;
+
+        switch (item.getItemId()){
+
+
             case  R.id.Toggle_Touch_Assist :
                 if(item.isChecked()) {
                     item.setChecked(false);
                     sp.edit().putBoolean("status",false).commit() ;
                     Toast.makeText(getApplicationContext(), "Assistive Touch Deactivated", Toast.LENGTH_SHORT).show();
+                    stopService(new Intent(ProfileInfo.this, HUD.class));
 
                 }
 
@@ -169,7 +179,7 @@ public class ProfileInfo extends AppCompatActivity {
                     item.setChecked(true);
                     sp.edit().putBoolean("status", true).commit();
                     Toast.makeText(getApplicationContext(), "Assistive Touch Activated", Toast.LENGTH_SHORT).show();
-
+                    startService(new Intent(ProfileInfo.this, HUD.class));
 
 
 

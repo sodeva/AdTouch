@@ -2,8 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="sodevan.adtouch">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
 
     <application
         android:allowBackup="true"
@@ -30,15 +32,15 @@
         <activity
             android:name="com.facebook.FacebookActivity"
             android:label="@string/app_name" />
-        <activity android:name=".Home"></activity>
-
+        <activity android:name=".Home" />
 
         <provider
-            android:authorities="com.facebook.app.FacebookContentProvider"
             android:name="com.facebook.FacebookContentProvider"
-            android:exported="true"/>
+            android:authorities="com.facebook.app.FacebookContentProvider"
+            android:exported="true" />
 
-
+        <service
+            android:name=".HUD"/>
     </application>
 
 </manifest>

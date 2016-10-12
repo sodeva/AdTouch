@@ -1,6 +1,8 @@
 package sodevan.adtouch;
 
+import android.app.ActivityManager;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
@@ -105,16 +107,8 @@ public class Home extends AppCompatActivity {
 
                 Toast.makeText(Home.this,"NOice",Toast.LENGTH_SHORT).show();
                 Intent changeprofile = new Intent(getApplicationContext() ,  ProfileInfo.class) ;
-
-
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(this).toBundle() ;
-                    this.startActivity(changeprofile,bundle);
-                }
-
-                else{
                     startActivity(changeprofile);
-                }
+
 
                 break;
 
@@ -124,6 +118,7 @@ public class Home extends AppCompatActivity {
                     item.setChecked(false);
                     sp.edit().putBoolean("status",false).commit() ;
                     Toast.makeText(getApplicationContext(), "Assistive Touch Deactivated", Toast.LENGTH_SHORT).show();
+                    stopService(new Intent(Home.this, HUD.class));
 
                 }
 
@@ -133,7 +128,7 @@ public class Home extends AppCompatActivity {
                     item.setChecked(true);
                     sp.edit().putBoolean("status", true).commit();
                     Toast.makeText(getApplicationContext(), "Assistive Touch Activated", Toast.LENGTH_SHORT).show();
-
+                    startService(new Intent(Home.this, HUD.class));
 
 
 
@@ -193,6 +188,9 @@ public class Home extends AppCompatActivity {
 
         }
     }
+
+
+
 
 
 

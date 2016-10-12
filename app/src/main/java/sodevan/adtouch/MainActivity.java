@@ -103,25 +103,19 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("status ", "facebook:onSuccess:" + loginResult);
                 //If The User Successfully Signed In Then we Call handleFacebookAcessToken Function To Store The User In Firebase Authentication System
                 handleFacebookAccessToken(loginResult.getAccessToken());
-                GraphRequest request=GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-                                        @Override
-                                        public void onCompleted(JSONObject object, GraphResponse response) {
-                                                Log.d("response",response+"");
+                new GraphRequest(
+                        AccessToken.getCurrentAccessToken(),
+                        "/me",
+                        null,
+                        HttpMethod.GET,
+                        new GraphRequest.Callback() {
+                            public void onCompleted(GraphResponse response) {
+            /* handle the result */
+                                Log.d("Response::" , String.valueOf(response.getJSONObject()));
 
-                                                        Log.d("data",response.toString());
-
-
-                                            try {
-                                                Log.d("education",object.getJSONObject("education").getJSONObject("0").getString("type"));
-                                            } catch (JSONException e) {
-                                                e.printStackTrace();
-                                            }
-                                        }
-                                    });
-                                Bundle parameters=new Bundle();
-                                parameters.putString("fields","email");
-                                request.setParameters(parameters);
-                               request.executeAsync();
+                            }
+                        }
+                ).executeAsync();
             }
 
 
